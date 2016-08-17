@@ -1,0 +1,563 @@
+FORMAT: 1A
+HOST: http://10.10.120.9:9791/api/open
+
+# 全域旅游导游导览 
+
+Polls is a simple API allowing consumers to view polls and vote in them.
+
+##  注册 [/account/register]
+
+### 用户注册 [POST]
+
+用户名需要后端判断，字母开头和数字下划线的组合。
+前端将用户密码MD5加密后传输到后台。
+注册成功后传回token，并设置为已经登录状态
+
++ Request (application/json)
+
+        [
+            {
+                "userName": "Admin",
+                "password": "pwd",
+                "confirmPassword": "pwd"
+            }
+        ]
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": true,
+                "data":{
+                    "userinfo":{
+                        "mid":"1",
+                        "name":"Admin",
+                    },
+                    "token":"c0LkyxpflsfdUocM36YtAlBWr3cOrj7lcZ/zpbY96tVkoihTCrlnVMPyVk+EyFJ5qkHTI/AYENifa50mrTg6msse7oGabuVSTZZ163XjXT6c8AZ1C0lNXHboKH7UNjwvgX8S4F9YxGwmLL4vYUkoFQ==",
+                    "token_type": "bearer"
+                }
+            }
+
+
+##  登录 [/token]
+
+### 用户登录 [POST]
+
+前端将用户密码MD5加密后传输到后台。这里需要2个参数，密码password, 和用户名 username。
+
++ Request  (application/x-www-form-urlencoded)
+
+        grant_type=password&password={password}&username={username}
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "access_token": "AQAAANCMnd8BFdERjHoAwE_Cl-sBAAAARgNgxbNN2Em1BwMrIAddiAAAAAACAAAAAAAQZgAAAAEAACAAAAB-okEl-rTcyfLIBBcwKFMSdvR2kEEo4YmoAGVSch6CXwAAAAAOgAAAAAIAACAAAAAOKU5fQVM9EDW8X8dzQjNcqt4WUdnF0JOygvtETvZRM4AAAADBdwVggj2Dd7KhwPijDeXxwcvBUv6ck865dj6SAJyhOy0VJHb5poBc-vefOgLA-6xmEXn1a0NF71ImID5eQF26JcTjsMbiIfdM0I5QSMecrre3EOlL5ATts-x_yl1_zG4nJxIctLw5HNTHJX2DMGxj2F9oV5PQqEI15ihc7X2wR0AAAAAqykh3fZ86msum6dpclCXOQg_ZSyl0emruhzkomEKyHDdmuNrJ0ex7LL10IoRyi2ziltB5oLJ9gLdKgupEwqUM",
+              "token_type": "bearer",
+              "expires_in": 1209599,
+              "userName": "admin",
+              ".issued": "Thu, 11 Aug 2016 03:54:44 GMT",
+              ".expires": "Thu, 25 Aug 2016 03:54:44 GMT"
+            }
+
+
+##  找回密码 [/ForgotPassword]
+
+### 用户找回密码 [POST]
+
++ Request  (application/json)
+
+        [
+            {
+                "phone": "13500314457",
+                "validateCode": "135678",
+                "newPwd": "331122"
+            }
+        ]
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": true
+            }
+
+
+##  第三方登录 [/ExtLogin]
+
+### 待定 [POST]
+
++ Request  (application/json)
+
+        [
+            {
+                "phone": "13500314457",
+                "validateCode": "135678",
+                "newPwd": "331122"
+            }
+        ]
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": true
+            }
+
+
+
+##  景区 [/ScenicAreas?pageIndex={pageIndex}&pageSize={pageSize}&zone={zone}&key={key}&orderby={orderby}&isRecommend={isRecommend}]
+
+这里需要2个int参数，页码pageIndex 和页面数据量 pageSize,
+zone 为区域
+key为搜索关键字。
+orderby为排序类型。
+isRecommend  是否推荐
+
+### 景区 [GET]
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": true,
+                "data":{
+                    "total":143,
+                    "list":[
+                        {
+                            "mid":1,
+                            "name":"关帝庙",
+                            "star":"4",
+                            "coordinate":["116.320816","39.966606"],
+                            "mdescription":"四川梓潼县七曲山大庙魁星楼北面",
+                            "feature":"寺庙、观光",
+                            "hasMinimap":false,
+                            "image":"http://lorempixel.com/240/160/"
+                        },{
+                            "mid":2,
+                            "name":"越王楼",
+                            "star":"4",
+                            "coordinate":["126.320816","39.966606"],
+                            "mdescription":"四川梓潼县七曲山大庙魁星楼北面",
+                            "feature":"观光",
+                            "hasMinimap":false,
+                            "image":"http://lorempixel.com/240/160/"
+                        },{
+                            "mid":3,
+                            "name":"药王谷",
+                            "star":"4",
+                            "coordinate":["126.320816","39.966606"],
+                            "mdescription":"四川梓潼县七曲山大庙魁星楼北面",
+                            "hasMinimap":true,
+                            "feature":"观光",
+                            "image":"http://lorempixel.com/240/160/"
+                        },{
+                            "mid":4,
+                            "name":"九皇山",
+                            "hasMinimap":true,
+                            "star":"4",
+                            "coordinate":["126.320816","39.966606"],
+                            "mdescription":"四川梓潼县七曲山大庙魁星楼北面",
+                            "feature":"观光",
+                            "image":"http://lorempixel.com/240/160/"
+                        }
+                    ]
+                }
+                    
+                
+            }
+            
+##  景区详情 [/ScenicAreas/{Id}]
+景区详情改为 HTML嵌入页面
+但进入APP页面时需要加载其他数据，包含如下
+"hasMinimap":是否有微地图,
+"hasProduct":是否有产品,
+"hasLine":是否有线路,
+"hasEvent":是否有事件,
+"hasGuide":是否有攻略
+
+Id 景区ID
+
+### 景区 [GET]
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": true,
+                "data":{
+                    "mid":1,
+                    "name":"关帝庙",
+                    "star":"4",
+                    "coordinate":["116.320816","39.966606"],
+                    "hasMinimap":false,
+                    "hasProduct":true,
+                    "hasLine":true,
+                    "hasEvent":true,
+                    "hasGuide":true
+                }
+            }
+            
+            
+##  线路 [/TouringRoutes?pageIndex={pageIndex}&pageSize={pageSize}&zone={zone}&ScenicID={ScenicID}]
+
+这里需要2个参数，页码pageIndex 和页面数据量 pageSize。
+zone 为区域
+isRecommend  是否推荐
+orderby  排序规则
+
+1 最近发布时间
+2 按人气最高
+
+
+ScenicID 景区ID   ， 景区明细中获取线路需要
+
+
+### 线路 [GET]
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": true,
+                "data":[
+                    {
+                        "mid":1,
+                        "name":"九环东线神奇旅游线",
+                        "subtitle":"红色旅游 科技成果 两弹一星 国防科工",
+                        "mdescription":"九环东线是经由绵阳、江油、北川、平武进入九寨沟、黄龙风景区的一条旅游线路，全程400余",
+                        "days":[1,2],
+                        "image":"http://lorempixel.com/240/160/"
+                    },{
+                        "mid":2,
+                        "name":"两弹科技特色旅游线",
+                        "subtitle":"红色旅游 科技成果 两弹一星 国防科工",
+                        "mdescription":"九环东线是经由绵阳、江油、北川、平武进入九寨沟、黄龙风景区的一条旅游线路，全程400余",
+                        "days":[3,4,5],
+                        "image":"http://lorempixel.com/240/160/"
+                    },{
+                        "mid":1,
+                        "name":"文化探源锦绣旅游线",
+                        "subtitle":"红色旅游 科技成果 两弹一星 国防科工",
+                        "mdescription":"九环东线是经由绵阳、江油、北川、平武进入九寨沟、黄龙风景区的一条旅游线路，全程400余",
+                        "days":[52],
+                        "image":"http://lorempixel.com/240/160/"
+                    },{
+                        "mid":1,
+                        "name":"羌乡风情大爱旅游线",
+                        "subtitle":"红色旅游 科技成果 两弹一星 国防科工",
+                        "mdescription":"九环东线是经由绵阳、江油、北川、平武进入九寨沟、黄龙风景区的一条旅游线路，全程400余",
+                        "days":[2],
+                        "image":"http://lorempixel.com/240/160/"
+                    }
+                ]
+            }
+            
+          
+##  景区内线路 [/MiniMapRoutes?pageIndex={pageIndex}&pageSize={pageSize}&ScenicID={ScenicID}]
+
+
+ScenicID 景区ID   ， 景区明细中获取线路需要
+
+
+### 线路 [GET]
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": true,
+                "data":[
+                    {
+                        "mid":1,
+                        "name":"九环东线神奇旅游线",
+                        "stars":"1",
+                        "image":"http://lorempixel.com/240/160/",
+                        "nextdistance":"0.5"
+                    },{
+                        "mid":2,
+                        "name":"两弹科技特色旅游线",
+                         "stars":"5",
+                        "image":"http://lorempixel.com/240/160/",
+                        "nextdistance":"0.75"
+                    },{
+                        "mid":1,
+                        "name":"文化探源锦绣旅游线",
+                         "stars":"3",
+                        "image":"http://lorempixel.com/240/160/",
+                        "nextdistance":"0.5"
+                    },{
+                        "mid":1,
+                        "name":"羌乡风情大爱旅游线",
+                        "stars":"4",
+                        "image":"http://lorempixel.com/240/160/",
+                        "nextdistance":"0.5"
+                    }
+                ]
+            }
+            
+            
+##  活动 [/Campaigns?pageIndex={pageIndex}&pageSize={pageSize}&zone={zone}&key={key}&ScenicId={ScenicId}]
+
+这里需要2个参数，页码pageIndex 和页面数据量 pageSize。
+zone 为区域,key为关键字
+isRecommend  是否推荐
+orderby  排序规则
+ScenicId 景区ID
+
+1 最近发布时间
+2 按人气最高
+8 离开始时间最近
+9 离结束时间最近
+
+
+### 活动 [GET]
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": true,
+                "data":[
+                    {
+                        "mid":1,
+                        "name":"文化探源锦绣旅",
+                        "subtitle":"富乐之邦耀天府，美不胜收看绵州",
+                        "startDate":"2015/5/1",
+                        "endDate":"2017/9/30",
+                        "image":"http://lorempixel.com/240/160/"
+                    },{
+                        "mid":2,
+                        "name":"两弹科技特色旅游",
+                        "subtitle":"红色旅游 科技成果 两弹一星 国防科工",
+                        "startDate":"2015/5/1",
+                        "endDate":"2017/9/30",
+                        "image":"http://lorempixel.com/240/160/"
+                    },{
+                         "mid":3,
+                        "name":"两弹科技特色旅游",
+                        "subtitle":"红色旅游 科技成果 两弹一星 国防科工",
+                        "startDate":"2015/5/1",
+                        "endDate":"2017/9/30",
+                        "image":"http://lorempixel.com/240/160/"
+                    },{
+                         "mid":4,
+                        "name":"两弹科技特色旅游",
+                        "subtitle":"红色旅游 科技成果 两弹一星 国防科工",
+                        "startDate":"2015/5/1",
+                        "endDate":"2017/9/30",
+                        "image":"http://lorempixel.com/240/160/"
+                    }
+                ]
+            }
+            
+##  攻略 [/TravelGuides?pageIndex={pageIndex}&pageSize={pageSize}&zone={zone}&key={key}&orderby={orderby}&ScenicId={ScenicId}]
+
+这里需要2个参数，页码pageIndex 和页面数据量 pageSize。
+zone 为区域,key为关键字
+isRecommend  是否推荐
+orderby  排序规则
+ScenicId 景区ID
+
+1 最近发布时间
+2 按人气最高
+
+### 攻略 [GET]
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": true,
+                "data":[
+                    {
+                        "mid":1,
+                        "title":"文化探源锦绣旅",
+                        "author":"巴里摩尔",
+                        "feature":"寺庙，风光",
+                        "addDate":"2015/5/1 16:14:12",
+                        "image":"http://lorempixel.com/240/160/"
+                    },{
+                         "mid":1,
+                        "title":"文化探源锦绣旅",
+                        "author":"巴里摩尔",
+                        "feature":"寺庙，风光",
+                        "addDate":"2015/5/1 16:14:12",
+                        "image":"http://lorempixel.com/240/160/"
+                    },{
+                          "mid":1,
+                        "title":"文化探源锦绣旅",
+                        "author":"巴里摩尔",
+                        "feature":"寺庙，风光",
+                        "addDate":"2015/5/1 16:14:12",
+                        "image":"http://lorempixel.com/240/160/"
+                    },{
+                        "mid":1,
+                        "title":"文化探源锦绣旅",
+                        "author":"巴里摩尔",
+                        "feature":"寺庙，风光",
+                        "addDate":"2015/5/1 16:14:12",
+                        "image":"http://lorempixel.com/240/160/"
+                    }
+                ]
+            }
+            
+            
+##  商品 [/Products?pageIndex={pageIndex}&pageSize={pageSize}&zone={zone}&key={key}&orderby={orderby}&includechild={includechild}&ScenicId={ScenicId}]
+
+这里需要2个参数，页码pageIndex 和页面数据量 pageSize。
+zone 为区域,key为关键字
+isRecommend  是否推荐
+orderby  排序规则
+ScenicId 景区ID
+includeChild  包含子集商品 (景区包含景点)
+
+1 最近发布时间
+2 按人气最高
+10 按价格较高排序
+11 按价格较低排序
+
+### 商品 [GET]
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": true,
+                "data":[
+                    {
+                        "mid":1,
+                        "title":"药王谷门票",
+                        "subtitle":"国家级4A景区门票",
+                        "ornginPrice":"215",
+                        "discountPrice":"150",
+                        "unit":"人",
+                        "image":"http://lorempixel.com/240/160/"
+                    },{
+                        "mid":1,
+                        "title":"九皇山门票",
+                        "subtitle":"国家级4A景区门票",
+                        "ornginPrice":"215",
+                        "discountPrice":"150",
+                        "unit":"人",
+                        "image":"http://lorempixel.com/240/160/"
+                    },{
+                       "mid":1,
+                        "title":"辛夷花茶",
+                        "subtitle":"对治疗鼻炎有很好的效果",
+                        "ornginPrice":"215",
+                        "discountPrice":"150",
+                        "unit":"500g",
+                        "image":"http://lorempixel.com/240/160/"
+                    },{
+                       "mid":1,
+                        "title":"药王谷足浴盐",
+                        "subtitle":"男女老少皆宜",
+                        "ornginPrice":"115",
+                        "discountPrice":"50",
+                        "unit":"包",
+                        "image":"http://lorempixel.com/240/160/"
+                    }
+                ]
+            }            
+            
+            
+
+            
+##  线路详情 [/TouringRoutes/{Id}]
+
+
+Id 线路ID
+
+### 景区 [GET]
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": true,
+                "data":{
+                    "mid":1,
+                    "name":"羌乡风情大爱旅游线",
+                    "mdescription":"凤凰涅磐重生，大爱之城重筑",
+                    "addDate":"2015/5/1 16:14:12",
+                    "coordinate":["116.320816","39.966606"],
+                    "feature":"该线路堪称世界范围内都具有唯一性的地震遗址旅游线路，已建成AAAAA级景区北川羌城旅游区。两日内可游遍北川及周边主要景点。适合渴望体验抗震救灾精神，热爱少数民族独特民俗风情的游客或利用周末或短暂假期进行周边自驾游或家庭亲子游的游客。",
+                    "viewpoints":[
+                        {
+                            "mid":1,
+                            "image":"http://lorempixel.com/240/160/",
+                            "name":"关帝庙",
+                            "mdescription":"四川梓潼县七曲山大庙魁星楼北面",
+                            "stars":"4",
+                            "coordinate":["116.320816","39.966606"],
+                            "feature":"寺庙，观光"
+                        }, {
+                            "mid":2,
+                            "image":"http://lorempixel.com/240/160/",
+                            "name":"关帝庙",
+                            "mdescription":"四川梓潼县七曲山大庙魁星楼北面",
+                            "stars":"4",
+                            "coordinate":["116.320816","39.966606"],
+                            "feature":"寺庙，观光"
+                        }, {
+                            "mid":3,
+                            "image":"http://lorempixel.com/240/160/",
+                            "name":"关帝庙",
+                            "mdescription":"四川梓潼县七曲山大庙魁星楼北面",
+                            "stars":"4",
+                            "coordinate":["116.320816","39.966606"],
+                            "feature":"寺庙，观光"
+                        }
+                    ]
+                }
+            }
+##  获取验证码图片和Code [/Captcha]
+
+### 获取验证码图片和Code [GET]
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                  "success": true,
+                  "data": {
+                    "code": "NEF8",
+                    "image": "http://10.10.120.9:9791/api/Open/CaptchaImage/NEF8"
+                  }
+            }
+            
+##  修改密码 [/ChangePassword]
+
+### 修改密码 [POST]
+
++ Request (application/json)
+
+        {
+            "oldPassowrd": "Admin",
+            "newPassword": "pwd",
+            "captcha": "1452"
+        }
+        
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                  "success": true
+            }
