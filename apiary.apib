@@ -586,6 +586,8 @@ Id 线路ID
                     ]
                 }
             }
+            
+            
 ##  获取验证码图片和Code [/Captcha]
 
 ### 获取验证码图片和Code [GET]
@@ -620,4 +622,152 @@ Id 线路ID
 
             {
                   "success": true
+            }
+
+
+##  手机获得验证码 [/getverificode]
+
+### 手机获得验证码 [GET]
+
+        
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                  "success": true
+            }
+
+
+
+##  离线数据列表 [/offline?lastUpdate={lastUpdate}]
+
+lastUpdate 格式为 2015-04-01
+返回数据为景区数据，mid为景区ID
+
+### 离线数据列表 [GET]
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                  "success": true,
+                  "data": [
+                    {
+                        "mid":"1",
+                        "name":"九黄山",
+                        "size":"23.1M"
+                    },{
+                        "mid":"2",
+                        "name":"药王谷",
+                        "size":"13.1M"
+                    },
+                  ]
+            }
+
+
+
+##  离线数据列表 [/offline/{mid}]
+
+返回数据为景区数据，mid为景区ID，返回一个zip文件。
+建议后台更新景区数据后自动生成一个zip包，并添加版本号到数据库中，数据库管理更新包。
+
+### 离线数据列表 [GET]
+
++ Response 200 (application/-octstream)
+
+
+
+##  帮助中心 [/Help?pageIndex={pageIndex}&pageSize={pageSize}]
+
+
+### 帮助中心据列表 [GET]
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                  "success": true,
+                  "data": [
+                    {
+                        "mid":"1",
+                        "title":"帮助问题",
+                        "content":"帮助中心回答的内容，这个模块是一问一答的形式展示。"
+                    },{
+                        "mid":"2",
+                        "title":"帮助问题",
+                        "content":"帮助中心回答的内容，这个模块是一问一答的形式展示。"
+                    },
+                  ]
+            }
+
+
+##  关于我们 [/AboutUs]
+
+
+### 关于我们 [GET]
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                  "success": true,
+                  "data": 
+                    {
+                        "content":"一篇文章"
+                    }
+                  
+            }
+
+##  联系我们 [/ContactUs]
+
+
+### 联系我们 [GET]
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                  "success": true,
+                  "data": 
+                    {
+                        "mid":"1",
+                        "content":"一篇文章"
+                    }
+                  
+            }            
+
+
+
+##  获取景区蓝牙设备 [/Devices]
+
+"uuid":"ddd4b5a9-fecd-446c-bd78-63b70bb500a1",  //设备的UUID
+"coordinate":["116.320816","39.966606"],   // 经纬度坐标
+"type":"1", //类型   1.景区  2.景点 3.商品 4.活动
+"targetId":"3" // 上述类型的ID
+
+### 景区蓝牙设备 [GET]
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                  "success": true,
+                  "data": [{
+                        "uuid":"ddd4b5a9-fecd-446c-bd78-63b70bb500a1", 
+                        "coordinate":["116.320816","39.966606"],   
+                        "type":"1",
+                        "targetId":"3"
+                    }]
+                    
             }
