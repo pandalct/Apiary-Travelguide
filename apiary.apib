@@ -14,14 +14,14 @@ Polls is a simple API allowing consumers to view polls and vote in them.
 注册成功后传回token，并设置为已经登录状态
 
 + Request (application/json)
+     
 
-        [
-            {
-                "userName": "Admin",
-                "password": "pwd",
-                "confirmPassword": "pwd"
-            }
-        ]
+        {
+            "userName": "Admin",
+            "password": "pwd",
+            "confirmPassword": "pwd"
+        }
+        
 
 + Response 200 (application/json)
 
@@ -261,14 +261,74 @@ ScenicID 景区ID   ， 景区明细中获取线路需要
                 ]
             }
             
-          
-##  景区内线路 [/MiniMapRoutes?pageIndex={pageIndex}&pageSize={pageSize}&ScenicID={ScenicID}]
+       
+##  景区内线路列表 [/MiniMapRoutes?pageIndex={pageIndex}&pageSize={pageSize}&ScenicID={ScenicID}]
 
 
 ScenicID 景区ID   ， 景区明细中获取线路需要
 
 
-### 线路 [GET]
+### 线路列表 [GET]
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": true,
+                "data":
+                {
+                    "path":
+                    [  
+                        ["116.320816","39.966606"],
+                        ["116.320816","39.966606"],
+                        ["116.320816","39.966606"],
+                        ["116.320816","39.966606"],
+                        ["116.320816","39.966606"],
+                        ["116.320816","39.966606"],
+                        ["116.320816","39.966606"]
+                    ],
+                    "detail":
+                    [
+                        {
+                            "mid":1,
+                            "name":"九环东线神奇旅游线",
+                            "stars":"1",
+                            "duration":"7小时34分",
+                            "mileage":"约20公里长",
+                            "image":"http://lorempixel.com/240/160/"
+                        },{
+                            "mid":2,
+                            "name":"两弹科技特色旅游线",
+                             "stars":"5",
+                             "duration":"7小时34分",
+                            "mileage":"约20公里长",
+                            "image":"http://lorempixel.com/240/160/"
+                        },{
+                            "mid":1,
+                            "name":"文化探源锦绣旅游线",
+                            "stars":"3",
+                            "duration":"7小时34分",
+                            "mileage":"约20公里长",
+                            "image":"http://lorempixel.com/240/160/"
+                        },{
+                            "mid":1,
+                            "name":"羌乡风情大爱旅游线",
+                            "stars":"4",
+                            "duration":"7小时34分",
+                            "mileage":"约20公里长",
+                            "image":"http://lorempixel.com/240/160/"
+                        }
+                    ]
+                }
+            }
+            
+
+##  景区内线路 [/MiniMapRoute/{id}]
+
+线路ID  景区明细中获取线路需要
+
+### 线路明细 [GET]
 
 + Response 200 (application/json)
 
