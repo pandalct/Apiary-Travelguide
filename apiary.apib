@@ -640,9 +640,8 @@ Id 线路ID
 
 
 
-##  离线数据列表 [/offline?lastUpdate={lastUpdate}]
+##  离线数据列表 [/offline]
 
-lastUpdate 格式为 2015-04-01
 返回数据为景区数据，mid为景区ID
 
 ### 离线数据列表 [GET]
@@ -658,23 +657,48 @@ lastUpdate 格式为 2015-04-01
                     {
                         "mid":"1",
                         "name":"九黄山",
-                        "size":"23.1M"
+                        "size":"23.1M",
+                        "lastUpdate":"2015-07-08"
                     },{
                         "mid":"2",
                         "name":"药王谷",
-                        "size":"13.1M"
+                        "size":"13.1M",
+                        "lastUpdate":"2015-07-08"
                     },
                   ]
             }
 
 
 
-##  离线数据列表 [/offline/{mid}]
+##  离线数据zip包 [/offline/{mid}?nomedia=1]
 
+当nomedia  == 1 时，不包含mp3和地图文件
 返回数据为景区数据，mid为景区ID，返回一个zip文件。
 建议后台更新景区数据后自动生成一个zip包，并添加版本号到数据库中，数据库管理更新包。
 
-### 离线数据列表 [GET]
+### 离线数据zip包 [GET]
+
++ Response 200 (application/-octstream)
+
+
+
+##  解说文件 [/voice?ScenicId={ScenicId}&ViewpointId={ViewpointId}]
+
+ScenicId 不为0 时，ViewpointId为空 获取景区解说词
+ViewpointId 不为0 时，ScenicId为空 获取景点/营销单位解说词
+
+### 解说文件 [GET]
+
++ Response 200 (application/-octstream)
+
+
+##  地图文件 [/map?zone={zone}&ScenicId={ScenicId}&zoom={zoom}]
+zone 为地区ID
+ScenicId 不为0 时，zone为空 地区的手绘图
+zone 不为0 时，ScenicId为空 获取区手绘图
+zoom 为地图缩放级别
+
+### 地图文件 [GET]
 
 + Response 200 (application/-octstream)
 
@@ -771,3 +795,126 @@ lastUpdate 格式为 2015-04-01
                     }]
                     
             }
+
+##  用户信息 [/UserInfo]
+
+
+### 获取用户信息 [GET]
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                  "success": true,
+                  "data": {
+                  		"mid":"1",
+                        "avatar":"http://lorempixel.com/240/160/", 
+                        "gender":"男",
+                        "name":"道格拉斯",
+                        "phone":"13452322245",
+                        "dateofbirth":"1986-01-01"
+                    }
+                    
+            }            
+
+### 更新用户信息 [PUT]
+
+这里只更新姓名，性别，电话和出生日期
+
++ Request (application/json)
+
+        {
+            "name": "道格拉斯B",
+            "gender":"男",
+            "phone": "13452322245",
+            "dateofbirth": "1987-01-01"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                  "success": true,
+                  "data": {
+                  		"mid":"1",
+                        "avatar":"http://lorempixel.com/240/160/", 
+                        "gender":"男",
+                        "name":"道格拉斯B",
+                        "phone":"13452322245",
+                        "dateofbirth":"1987-01-01"
+                    }
+                    
+            }  
+
+
+##  用户信息 [/Avatar]
+
+数据格式如下  
+
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="avatar"; filename=""
+Content-Type: 
+
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+
+### 上传头像 [POST]
+
++ Request (multipart/form-data)
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                  "success": true,
+                  "data": "http://lorempixel.com/240/160/"
+                    
+            }  
+
+
+            
+##  地图上需要展示的点 [/points/{Id}]
+
+Id为景区ID
+本API用于景区地图，返回的字段 icon 为地图上使用的图标
+
+### 得到景区内的营销单位、景点和其他在地图上展示的点 [GET]
+
+
++ Response 200 (application/json)
+
+    + Body
+
+
+            {
+                  "success": true,
+                  "data": [
+                        {
+                            "mid":1,
+                            "icon":"http://lorempixel.com/240/160/",
+                            "name":"关帝庙",
+                            "type":"1",
+                            "coordinate":["116.320816","39.966606"]
+                        }, {
+                           "mid":2,
+                            "icon":"http://lorempixel.com/240/160/",
+                            "name":"厕所",
+                            "type":"8",
+                            "coordinate":["116.320816","39.966606"]
+                        }, {
+                           "mid":3,
+                            "icon":"http://lorempixel.com/240/160/",
+                            "name":"购物店",
+                            "type":"2",
+                            "coordinate":["116.320816","39.966606"]
+                        }
+                    ]
+                    
+            }  
