@@ -927,3 +927,108 @@ Id为景区ID
                     ]
                     
             }
+            
+##  评论 [/myComments?type={type}]
+评论分为多种类型，如下：
+1.景区
+2.景点
+3.线路
+4.活动
+5.攻略
+6.商品
+
+target 为评论对应的对象，即景区，景点，线路，活动，攻略，商品 数据为之前列表中各种类型的数据这里不赘述。
+
+### 得到我的评论列表 [GET]
+
+
++ Response 200 (application/json)
+
+    + Body
+
+
+            {
+                  "success": true,
+                  "data": [
+                        {
+                            "mid":1,
+                            "target":{},
+                            "content":"评论内容",
+                            "addDate":"2015-08-07 1:41"
+                        }, {
+                            "mid":1,
+                            "target":{},
+                            "content":"评论内容",
+                            "addDate":"2015-08-07 1:41"
+                        },
+                    ]
+                    
+            }
+            
+### 提交评论 [POST]
+
++ Request (application/json)
+
+        {
+            "targetId": 1,
+            "comment":"这是评论内容"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                  "success": true
+            }  
+            
+            
+         
+##  收藏 [/myfav?type={type}]
+评论分为多种类型，如下：
+1.景区
+2.景点
+3.线路
+4.活动
+5.攻略
+6.商品
+
+列表数据为上述对象， 数据为之前列表中各种类型的数据这里不赘述。
+
+### 得到我的收藏列表 [GET]
+
+
++ Response 200 (application/json)
+
+    + Body
+
+
+            {
+                  "success": true,
+                  "data": [
+                        {
+                            "注意":"这个API我没有写详细的返回数据，请看上述说明"
+                        }
+                    ]
+                    
+            }
+            
+### 提交收藏 [POST]
+
+isDelete == true 为删除收藏，false 为添加收藏
+
++ Request (application/json)
+
+        {
+            "targetId": 1,
+            "type":2,
+            "isDelete":false
+        }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                  "success": true
+            }
