@@ -206,8 +206,9 @@ Id 景区ID
             }
             
             
-##  线路 [/TouringRoutes?pageIndex={pageIndex}&pageSize={pageSize}&zone={zone}&ScenicID={ScenicID}]
+##  线路 [/TouringRoutes?pageIndex={pageIndex}&pageSize={pageSize}&zone={zone}&ScenicID={ScenicID}&key={key}]
 
+key为搜索关键字。
 这里需要2个参数，页码pageIndex 和页面数据量 pageSize。
 zone 为区域
 isRecommend  是否推荐
@@ -262,11 +263,11 @@ ScenicID 景区ID   ， 景区明细中获取线路需要
             }
             
        
-##  景区内线路列表 [/MiniMapRoutes?pageIndex={pageIndex}&pageSize={pageSize}&ScenicID={ScenicID}]
+##  景区内线路列表 [/MiniMapRoutes?pageIndex={pageIndex}&pageSize={pageSize}&ScenicID={ScenicID}&key={key}]
 
 
 ScenicID 景区ID   ， 景区明细中获取线路需要
-
+key为搜索关键字。
 
 ### 线路列表 [GET]
 
@@ -778,6 +779,10 @@ zoom 为地图缩放级别
 "type":"1", //类型   1.景区  2.景点 3.商品 4.活动
 "targetId":"3" // 上述类型的ID
 
+
+//targetScenicAreaId:目标对象所属的景区Id，（活动不属于单一景区，type为活动时返回0）
+
+
 ### 景区蓝牙设备 [GET]
 
 
@@ -791,7 +796,10 @@ zoom 为地图缩放级别
                         "uuid":"ddd4b5a9-fecd-446c-bd78-63b70bb500a1", 
                         "coordinate":["116.320816","39.966606"],   
                         "type":"1",
-                        "targetId":"3"
+                        "targetId":"3",
+                        "targetName": "药王谷"
+              			"targetScenicAreaId": "11"
+
                     }]
                     
             }
@@ -829,7 +837,7 @@ zoom 为地图缩放级别
             "name": "道格拉斯B",
             "gender":"男",
             "phone": "13452322245",
-            "dateofbirth": "1987-01-01"
+            "dateofbirth": "1987.01.01"
         }
 
 + Response 200 (application/json)
@@ -839,7 +847,7 @@ zoom 为地图缩放级别
             {
                   "success": true,
                   "data": {
-                          "mid":"1",
+                        "mid":"1",
                         "avatar":"http://lorempixel.com/240/160/", 
                         "gender":"男",
                         "name":"道格拉斯B",
@@ -984,7 +992,7 @@ target 为评论对应的对象，即景区，景点，线路，活动，攻略�
             
             
          
-##  收藏 [/myfav?type={type}]
+##  收藏 [/myFavorite?type={type}]
 评论分为多种类型，如下：
 1.景区
 2.景点
